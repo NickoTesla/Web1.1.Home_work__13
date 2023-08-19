@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "web1-1-home-work-12"
+version = "0.1.0"
+description = ""
+authors = ["NickoTesla <mykolandwirt@gmail.com>"]
+readme = "README.md"
+packages = [{include = "web1"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.101.0"
+uvicorn = "^0.23.2"
+alembic = "^1.11.2"
+psycopg2 = "^2.9.7"
+pydantic = {extras = ["email"], version = "^2.1.1"}
+libgravatar = "^1.0.4"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
