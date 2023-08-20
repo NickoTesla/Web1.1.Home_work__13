@@ -9,6 +9,8 @@ from sqlalchemy.orm import Session
 
 from src.database.db import get_db
 from src.repository import users as repository_users
+from ..conf.config import settings
+import redis
 
 # new
 class Auth:
@@ -90,12 +92,12 @@ class Auth:
 
 auth_service = Auth()
 
-    def create_email_token(self, data: dict):
-        to_encode = data.copy()
-        expire = datetime.utcnow() + timedelta(days=7)
-        to_encode.update({"iat": datetime.utcnow(), "exp": expire})
-        token = jwt.encode(to_encode, self.SECRET_KEY, algorithm=self.ALGORITHM)
-        return token
+def create_email_token(self, data: dict):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + timedelta(days=7)
+    to_encode.update({"iat": datetime.utcnow(), "exp": expire})
+    token = jwt.encode(to_encode, self.SECRET_KEY, algorithm=self.ALGORITHM)
+    return token
 
 
 async def get_email_from_token(self, token: str):

@@ -2,13 +2,13 @@ from datetime import date, datetime
 from typing import Optional, List
 from pydantic import BaseModel, Field, EmailStr
 
-class UserSchema(BaseModel):
+class UserModel(BaseModel):
     username: str = Field(min_length=5, max_length=16)
     email: EmailStr
     password: str = Field(min_length=6, max_length=10)
 
 
-class UserResponseSchema(BaseModel):
+class UserResponse(BaseModel):
     id: int
     username: str
     email: str
@@ -42,7 +42,7 @@ class ContactResponse(ContactBase):
     id: int 
     created_at: datetime | None 
     updated_at: datetime | None
-    user: UserResponseSchema | None
+    user: UserResponse | None
 
 
     class Config:

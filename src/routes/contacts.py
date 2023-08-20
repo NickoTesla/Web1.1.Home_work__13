@@ -7,6 +7,10 @@ from src.database.db import get_db
 from src.schemas import ContactCreate, ContactUpdate, ContactResponse
 from src.repository import contacts as repository_contacts
 
+from fastapi_limiter.depends import RateLimiter
+from ..services.auth import auth_service
+from src.database.models import User
+
 router = APIRouter(prefix='/contacts')
 
 @router.get("/", response_model=List[ContactResponse])
@@ -39,7 +43,7 @@ async def remove_contact(contact_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Contact not found")
     return contact
 
-@router.get("/", response_model=List[NoteResponse], description='No more than 10 requests per minute',
+@router.get("/", response_model=List[ContactResponse], description='No more than 10 requests per minute',
             dependencies=[Depends(RateLimiter(times=10, seconds=60))])
 async def read_notes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),
                      current_user: User = Depends(auth_service.get_current_user)):
